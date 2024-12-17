@@ -60,6 +60,7 @@ func main() {
 
     checkList := make(map[[3]int]Node, 0)
     checkList[[3]int{startPosition.col, startPosition.row, int(startPosition.direction)}] = startPosition
+    visited := make(map[[3]int]int, 0)
     for len(checkList) > 0 {
         currentNode := Node{-1, -1, 10000000, -1, nil} 
         currentKey := [3]int{-1, -1, -1}
@@ -70,6 +71,12 @@ func main() {
             }
         }
         delete(checkList, currentKey)
+
+        score, ok := visited[[3]int{currentNode.col, currentNode.row, int(currentNode.direction)}]
+
+        if ok && score < currentNode.score {
+            continue
+        }
 
         if raceMap[currentNode.row][currentNode.col] == 'E' {
             fmt.Println(len(currentNode.bestPathsCoordinates) + 1)
@@ -150,5 +157,7 @@ func main() {
         } else if left.score < node.score {
             checkList[keyL] = left
         }
+
+        visited[[3]int{currentNode.col, currentNode.row, int(currentNode.direction)}] = currentNode.score
     }
 }

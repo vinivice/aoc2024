@@ -64,9 +64,16 @@ func main() {
 
     checkList := make([]Node, 0)
     checkList = append(checkList, startPosition)
+    visited := make(map[[3]int]bool, 0)
     for len(checkList) > 0 {
         currentNode := checkList[0]
         checkList = checkList[1:]
+
+        _, ok := visited[[3]int{currentNode.col, currentNode.row, int(currentNode.direction)}]
+        if ok {
+            continue
+        }
+
 
         if raceMap[currentNode.row][currentNode.col] == 'E' {
             fmt.Println(currentNode.score)
@@ -124,5 +131,7 @@ func main() {
         }
 
         slices.SortFunc(checkList, cmp)
+
+        visited[[3]int{currentNode.col, currentNode.row, int(currentNode.direction)}] = true
     }
 }
