@@ -66,7 +66,7 @@ func main() {
         case 0:
             num := A
             denExp := getComboOperandValue(operand)
-            A = num / (1 << denExp)
+            A = num >> denExp
         case 1:
             B ^= operand
         case 2:
@@ -85,11 +85,11 @@ func main() {
         case 6:
             num := A
             denExp := getComboOperandValue(operand)
-            B = num / (1 << denExp)
+            B = num >> denExp
         case 7:
             num := A
             denExp := getComboOperandValue(operand)
-            C = num / (1 << denExp)
+            C = num >> denExp
         }
 
         instructionPointer += 2
